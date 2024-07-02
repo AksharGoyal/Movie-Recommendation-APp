@@ -9,6 +9,8 @@ transformers
 torch
 sentence_transformers
 llama-cpp-python
+llama-index-llms-huggingface
+llama-index-embeddings-huggingface
 
 ## PDF handling
 PyPDF2
