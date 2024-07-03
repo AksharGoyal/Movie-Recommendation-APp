@@ -29,7 +29,8 @@ def initialize():
     # print(f"ATLAS_URI detected is: {ATLAS_URI}")
 
     if not ATLAS_URI:
-        raise Exception ("'ATLAS_URI' is not set. Please set it in .env before continuing...")
+        # raise Exception ("'ATLAS_URI' is not set. Please set it in .env before continuing...")
+        ATLAS_URI = st.secrets["ATLAS_URI"]
 
     ip = urlopen('https://api.ipify.org').read()
     # print (f"My public IP is '{ip}.  Make sure this IP is allowed to connect to cloud Atlas")
