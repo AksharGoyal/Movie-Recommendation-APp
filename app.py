@@ -29,10 +29,12 @@ def initialize():
     # print(f"ATLAS_URI detected is: {ATLAS_URI}")
 
     if not ATLAS_URI:
-        # raise Exception ("'ATLAS_URI' is not set. Please set it in .env before continuing...")
+        # On Streamlit, you need to use secrets to fetch the API. If not provided, we raise Error.
         ATLAS_URI = st.secrets["ATLAS_URI"]
+        if not ATLAS_URI:
+            raise Exception ("'ATLAS_URI' is not set. Please set it in .env before continuing...")
 
-    ip = urlopen('https://api.ipify.org').read()
+    # ip = urlopen('https://api.ipify.org').read()
     # print (f"My public IP is '{ip}.  Make sure this IP is allowed to connect to cloud Atlas")
 
     os.environ['LLAMA_INDEX_CACHE_DIR'] = os.path.join(os.path.abspath('../'), 'cache')
@@ -54,7 +56,7 @@ def run_vector_query (query, model_name):
         # Generate embeddings for the given query
         embed_model = HuggingFaceEmbedding(model_name = model_name)
         query_embeddings = embed_model.get_text_embedding(query)
-        st.write (f"Generated embeddings for the given query: {query_embeddings [:5]}...")
+        # st.write (f"Generated embeddings for the given query: {query_embeddings [:5]}...")
 
         movies = st.session_state.atlas_client.vector_search(collection_name = COLLECTION_NAME, 
                                     index_name = index_name, 
